@@ -1,2 +1,20 @@
 install.packages("readxl")
 install.packages("HSAUR")
+install.packages("corrplot")
+library(readxl)
+library(HSAUR)
+library(corrplot)
+setwd("F:/BigData3/R/beer")
+beer<-read_xls("beer_pca.xls")
+beer_cost<-beer
+beer_cost$cost<-max(beer_cost$cost)-beer_cost$cost
+beer_cost.pca<-princomp(beer_cost,scale=T)
+beer_cost.pca
+summary(beer_cost.pca)
+biplot(beer_cost.pca)
+screeplot(beer_cost.pca,type = 'l',pch=19)
+?predict()
+str(beer_cost)
+#pred_beer<-predict(beer_cost)
+bc<-cor(beer_cost)
+corrplot(bc,method='number')
